@@ -2,94 +2,122 @@ import Image from "next/image";
 import styles from "./page.module.css";
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+	interface ShopifyFetchParams {
+		query: string;
+		variables?: Record<string, any>;
+	}
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+	interface ShopifyFetchResponse {
+		status: number;
+		body?: any;
+		error?: string;
+	}
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+	async function shopifyFetch({
+		query,
+		variables,
+	}: ShopifyFetchParams): Promise<ShopifyFetchResponse> {
+		const endpoint = process.env.SHOPIFY_STORE_DOMAIN;
+		const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+		if (!endpoint || !key) {
+			return {
+				status: 500,
+				error: "Missing Shopify endpoint or access token",
+			};
+		}
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
+		const url = endpoint.startsWith("https://")
+			? endpoint
+			: `https://${endpoint}`;
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+		try {
+			const response = await fetch(url, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"X-Shopify-Storefront-Access-Token": key,
+				},
+				body: JSON.stringify({ query, variables }),
+			});
+
+			const textResponse = await response.text();
+
+			try {
+				const jsonResponse = JSON.parse(textResponse);
+				return {
+					status: response.status,
+					body: jsonResponse,
+				};
+			} catch (jsonError) {
+				console.error("Response is not JSON:", textResponse);
+				return {
+					status: response.status,
+					error: "Response is not valid JSON",
+				};
+			}
+		} catch (error) {
+			console.error("Error:", error);
+			return {
+				status: 500,
+				error: "Error receiving data",
+			};
+		}
+	}
+
+	// Zapytanie GraphQL do pobrania produktów
+	const GET_PRODUCTS_QUERY = `
+    query GetProducts($first: Int!) {
+      products(first: $first) {
+        edges {
+          node {
+            id
+            title
+            description
+            images(first: 1) {
+              edges {
+                node {
+                  src
+                }
+              }
+            }
+            variants(first: 1) {
+              edges {
+                node {
+                  price {
+                    amount
+                    currencyCode
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+`;
+
+	async function fetchAllProducts(first: number): Promise<any> {
+		const response = await shopifyFetch({
+			query: GET_PRODUCTS_QUERY,
+			variables: { first },
+		});
+
+		if (response.error) {
+			throw new Error(response.error);
+		}
+
+		return response.body.data.products.edges.map((edge: any) => edge.node);
+	}
+
+	(async () => {
+		try {
+			const products = await fetchAllProducts(10);
+			console.log(products);
+		} catch (error) {
+			console.error("Failed to fetch products:", error);
+		}
+	})();
+
+	return <main className={styles.main}></main>;
 }
