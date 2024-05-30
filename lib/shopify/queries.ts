@@ -1,4 +1,4 @@
-export const getAllProductsQuery = `
+export const getFirstProductsQuery = `
     query GetProducts($first: Int) {
       products(first: $first) {
         edges {
