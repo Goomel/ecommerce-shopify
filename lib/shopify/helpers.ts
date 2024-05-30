@@ -1,5 +1,6 @@
 import { ShopifyFetchParams } from './types';
 import { getFirstProductsQuery } from '@/lib/shopify/queries';
+import { ShopifyProduct } from './types';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN;
 const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
@@ -12,6 +13,7 @@ export async function shopifyFetch({ query, variables }: ShopifyFetchParams) {
       error: 'Missing Shopify endpoint or access token',
     };
   }
+
   try {
     const result = await fetch(endpoint, {
       method: 'POST',
@@ -34,7 +36,7 @@ export async function shopifyFetch({ query, variables }: ShopifyFetchParams) {
   }
 }
 
-export async function fetchFirstProducts(first: number): Promise<any> {
+export async function fetchFirstProducts(first: number): Promise<ShopifyProduct[]> {
   const response = await shopifyFetch({
     query: getFirstProductsQuery,
     variables: { first },

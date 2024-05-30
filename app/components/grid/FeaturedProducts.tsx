@@ -1,10 +1,12 @@
 import { fetchFirstProducts } from '@/lib/shopify/helpers';
 import { ShopifyProduct } from '@/lib/shopify/types';
+import Image from 'next/image';
 
 import React from 'react';
 
 const FeaturedProducts = async () => {
-  const featuredProducts = await fetchFirstProducts(3);
+  const numberOfFirstProducts = 3;
+  const featuredProducts = await fetchFirstProducts(numberOfFirstProducts);
 
   return (
     <div>
@@ -12,6 +14,12 @@ const FeaturedProducts = async () => {
         <div key={product.id}>
           <p>{product.title}</p>
           <p>{product.description}</p>
+          <Image
+            src={product.images.edges[0].node.src}
+            alt={product.title}
+            width={250}
+            height={300}
+          />
           <br />
         </div>
       ))}

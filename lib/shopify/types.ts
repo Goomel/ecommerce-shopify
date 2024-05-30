@@ -7,6 +7,14 @@ export type ShopifyProduct = {
   id: string;
   title: string;
   description: string;
-  images: object;
+  images: {
+    edges: [
+      {
+        node: {
+          src: string;
+        };
+      },
+    ];
+  };
   variants: object;
 };
