@@ -1,6 +1,5 @@
 // Container.scss
 $breakpoints: (
-  'none': 100%,
   'sm': 640px,
   'md': 768px,
   'lg': 1024px,
@@ -19,13 +18,12 @@ $padding: (
 .container {
   width: 100%;
   padding: map-get($padding, 'default');
+  margin: 0 auto;
 
   @each $size, $value in $breakpoints {
-    @if $size !='none' {
-      @media (min-width: $value) {
-        max-width: $value;
-        padding: map-get($padding, $size);
-      }
+    @media (min-width: $value) {
+      max-width: $value;
+      padding: 0 map-get($padding, $size);
     }
   }
 }

@@ -1,0 +1,16 @@
+.wrapper {
+  display: none;
+}
+
+@media(min-width: 1024px) {
+  .wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    li {
+      list-style-type: none;
+      font-size: 1rem;
+    }
+  }
+}

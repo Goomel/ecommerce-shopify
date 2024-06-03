@@ -1,0 +1,20 @@
+.wrapper {
+  position: fixed;
+  padding: 3rem 0 0 0;
+  width: 100%;
+}
+
+.innerWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logoWrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
