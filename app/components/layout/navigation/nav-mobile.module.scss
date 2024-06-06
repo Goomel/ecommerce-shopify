@@ -1,0 +1,46 @@
+.hamburgerWrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.hamburgerButton {
+  --hamburger-line-height: 2px;
+  --gap-between-lines: 6px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap-between-lines);
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  z-index: 2;
+
+  &.isOpen {
+    .hamburgerLine {
+      &:first-child {
+        transform: translateY(calc((var(--gap-between-lines) / 2) + (var(--hamburger-line-height) / 2))) rotate(45deg);
+        // transform-origin: 50% 0%;
+      }
+
+      &:last-child {
+        transform: translateY(calc(((var(--gap-between-lines) / 2) + (var(--hamburger-line-height) / 2)) * -1)) rotate(-45deg);
+      }
+    }
+  }
+}
+
+.hamburgerLine {
+  background-color: var(--black-400);
+  width: 24px;
+  height: 2px;
+  transition: transform 0.2s;
+  will-change: transform;
+}
+
+@media (min-width: 1024px) {
+  .hamburgerButton {
+    display: none;
+  }
+}
