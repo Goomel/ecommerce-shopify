@@ -6,7 +6,7 @@ import styles from './nav-mobile.module.scss';
 const NavMobile = ({ menu }: { menu: Menu }) => {
   return (
     <div className={styles.hamburgerWrapper}>
-      <div className={cn(styles.hamburgerButton, { [styles.isOpen]: true })}>
+      <div className={cn(styles.hamburgerButton, { [styles.isOpen]: false })}>
         <span className={styles.hamburgerLine}></span>
         <span className={styles.hamburgerLine}></span>
       </div>

@@ -1,7 +1,13 @@
 .wrapper {
   position: fixed;
-  padding: 3rem 0 0 0;
+  padding: 1.5rem 0 0 0;
   width: 100%;
+  z-index: 3;
+
+  a,
+  span {
+    color: var(--gray-100);
+  }
 }
 
 .innerWrapper {
@@ -14,4 +20,10 @@
 .cartWrapper {
   display: flex;
   justify-content: flex-end;
+}
+
+@media(min-width: 1024px) {
+  .wrapper {
+    padding: 2.5rem 0 0 0;
+  }
 }

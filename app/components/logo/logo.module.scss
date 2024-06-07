@@ -1,11 +1,21 @@
-.logo {
-  font-family: var(--font-audrey);
-  font-size: var(--2xl);
-  line-height: 1;
+.wrapper {
+  min-width: 120px;
+  width: calc(4rem + 12vw);
+
+  svg {
+    width: 100%;
+    fill: var(--gray-100);
+  }
 }
 
 @media (min-width: 1024px) {
-  .logo {
-    font-size: var(--3xl);
+  .wrapper {
+    width: calc(6rem + 5vw);
+  }
+}
+
+@media (min-width: 1920px) {
+  .wrapper {
+    width: 200px;
   }
 }
