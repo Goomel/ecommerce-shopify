@@ -1,0 +1,52 @@
+.hamburgerWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  width: 2rem;
+  background-color: transparent;
+  border: none;
+
+  &.open {
+    .line {
+      background-color: var(--gray-100);
+    }
+  }
+
+  &.close {
+    .line {
+      background-color: var(--black-500);
+
+      &:first-child {
+        transform: translateY(calc((var(--gap-between-lines) / 2) + (var(--hamburger-line-height) / 2))) rotate(45deg);
+      }
+
+      &:last-child {
+        transform: translateY(calc(((var(--gap-between-lines) / 2) + (var(--hamburger-line-height) / 2)) * -1)) rotate(-45deg);
+      }
+    }
+  }
+}
+
+.hamburgerButton {
+  --hamburger-line-height: 1.5px;
+  --gap-between-lines: 6px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap-between-lines);
+  cursor: pointer;
+}
+
+.line {
+  width: 24px;
+  height: var(--hamburger-line-height);
+}
+
+@media(min-width: 1024px) {
+  .hamburgerWrapper.open {
+    display: none;
+  }
+}

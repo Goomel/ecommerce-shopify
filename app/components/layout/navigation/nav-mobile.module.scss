@@ -1,47 +1,24 @@
-.hamburgerWrapper {
-  display: flex;
-  justify-content: center;
-  height: 2rem;
-  width: 2rem;
+.menu {
+  width: clamp(400px, 50%, 600px);
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--gray-100);
+  padding: 1.5rem 0 0 3rem;
 }
 
-.hamburgerButton {
-  --hamburger-line-height: 1.5px;
-  --gap-between-lines: 6px;
-
+.list {
+  padding: 3rem 0 0 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: var(--gap-between-lines);
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-  z-index: 2;
+  gap: 1rem;
 
-  &.isOpen {
-    .hamburgerLine {
-      &:first-child {
-        transform: translateY(calc((var(--gap-between-lines) / 2) + (var(--hamburger-line-height) / 2))) rotate(45deg);
-      }
+  li {
+    list-style-type: none;
 
-      &:last-child {
-        transform: translateY(calc(((var(--gap-between-lines) / 2) + (var(--hamburger-line-height) / 2)) * -1)) rotate(-45deg);
-      }
+    a {
+      color: var(--black-500);
     }
-  }
-}
-
-.hamburgerLine {
-  background-color: var(--gray-100);
-  width: 24px;
-  height: var(--hamburger-line-height);
-  transition: transform 0.2s;
-  will-change: transform;
-}
-
-@media (min-width: 1024px) {
-  .hamburgerButton {
-    display: none;
   }
 }
