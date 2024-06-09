@@ -19,6 +19,20 @@
   object-fit: cover;
 }
 
+.heroLogo {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  padding: 0 0 2.5rem 0;
+  text-align: center;
+
+  svg {
+    width: clamp(240px, 50%, 540px);
+    fill: var(--gray-100);
+    filter: drop-shadow(3px 5px 8px rgba(0, 0, 0, 0.8));
+  }
+}
+
 @media (min-width: 1024px) {
   .wrapper {
     height: 100vh;

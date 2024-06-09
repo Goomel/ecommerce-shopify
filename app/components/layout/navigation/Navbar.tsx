@@ -4,7 +4,7 @@ import NavMobile from './NavMobile';
 import { Menu } from '@/lib/types';
 import Container from '@/app/components/container/Container';
 import styles from './navbar.module.scss';
-import Logo from '@/app/components/logo/Logo';
+import LogoSvg from '@/assets/images/logo.svg';
 import Cart from '@/app/components/cart/Cart';
 
 const menu: Menu = [
@@ -31,7 +31,9 @@ const Navbar = () => {
             <NavMobile menu={menu} />
             <NavDesktop menu={menu} />
           </div>
-          <Logo />
+          <div className={styles.logoWrapper}>
+            <LogoSvg />
+          </div>
           <div className={styles.cartWrapper}>
             <Cart />
           </div>

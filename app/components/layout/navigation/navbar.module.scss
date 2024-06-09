@@ -17,6 +17,16 @@
   align-items: center;
 }
 
+.logoWrapper {
+  min-width: 120px;
+  width: calc(4rem + 12vw);
+
+  svg {
+    width: 100%;
+    fill: var(--gray-100);
+  }
+}
+
 .cartWrapper {
   display: flex;
   justify-content: flex-end;
@@ -25,5 +35,15 @@
 @media(min-width: 1024px) {
   .wrapper {
     padding: 2.5rem 0 0 0;
+  }
+
+  .logoWrapper {
+    width: calc(6rem + 5vw);
+  }
+}
+
+@media (min-width: 1920px) {
+  .logoWrapper {
+    width: 200px;
   }
 }
