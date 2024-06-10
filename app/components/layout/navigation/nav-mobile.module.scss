@@ -1,11 +1,21 @@
+.menuOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
 .menu {
   width: clamp(400px, 50%, 600px);
-  height: 100vh;
+  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
   background-color: var(--gray-100);
   padding: 1.5rem 0 0 3rem;
+  z-index: 2;
 }
 
 .list {
