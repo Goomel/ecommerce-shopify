@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  cursor: pointer;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  stroke: var(--gray-100);
+}
+
+@media(min-width: 1024px) {
+  .icon {
+    width: 26px;
+    height: 26px;
+  }
+}
