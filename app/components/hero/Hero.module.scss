@@ -44,3 +44,9 @@
     object-position: center 0%;
   }
 }
+
+@media (min-width: 1536px) {
+  .bgImage {
+    object-position: center 10%;
+  }
+}

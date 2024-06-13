@@ -1,4 +1,4 @@
-import FeaturedProducts from './components/grid/FeaturedProducts';
+import FeaturedProducts from './components/grid/featuredProducts/FeaturedProducts';
 import styles from './page.module.scss';
 import Hero from '@/app/components/hero/Hero';
 

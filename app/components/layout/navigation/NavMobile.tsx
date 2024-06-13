@@ -20,10 +20,18 @@ const NavMobile = ({ menu }: { menu: Menu }) => {
   useClickAway(navMobileRef, () => setOpen(false));
 
   // Close the menu when user enlarge the screen to > 1024px
-  const isWide = useMedia('(min-width: 1024px)');
+  const isWide = useMedia('(min-width: 1024px)', false);
   useEffect(() => {
     if (isWide) setOpen(false);
   }, [isWide]);
+
+  // Disable scrolling when menu is open
+  useEffect(() => {
+    const htmlElement = document.querySelector('html');
+    if (htmlElement) {
+      htmlElement.style.overflow = isOpen ? 'hidden' : 'auto';
+    }
+  }, [isOpen]);
 
   return (
     <div ref={navMobileRef}>

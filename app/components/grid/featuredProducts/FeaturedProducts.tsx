@@ -1,8 +1,7 @@
+import React from 'react';
+import Image from 'next/image';
 import { fetchFirstProducts } from '@/lib/shopify/helpers';
 import { ShopifyProduct } from '@/lib/shopify/types';
-import Image from 'next/image';
-
-import React from 'react';
 
 const FeaturedProducts = async () => {
   const numberOfFirstProducts = 3;
